@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="hint_text">טקסט מנחה</string>
+    <string name="clear_tags">נקה תגיות</string>
+    <string name="show_tags">הצג תגיות</string>
+</resources>
