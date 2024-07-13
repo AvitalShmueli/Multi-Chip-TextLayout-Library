@@ -4,6 +4,8 @@ Home Assignment Exercise for Android B course, in Afeka - the academic college o
 
 Library to insert a text input layout that contains chips.
 
+![sample](https://github.com/user-attachments/assets/59830f0e-63e3-4718-9bb6-df9da27ca3de)
+
 ## Usage
 ##### MultiChipTextLayout Constructor:
 ```java  
@@ -13,54 +15,80 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
 ##### MultiChipTextLayout xml parameters:
 
 ```xml  
-<com.example.multichipcomboboxlibrary.MultiChipTextLayout    
-  android:id="@+id/main_multi_chip"    
-  android:layout_width="match_parent"    
-  android:layout_height="wrap_content"    
-  android:layout_marginTop="32dp"    
-  android:layout_marginHorizontal="16dp"    
-  app:chipBackgroundColor="@android:color/transparent"    
-  app:chipCloseEnabled="true"    
-  app:chipCloseIconTint="@color/teal800"    
-  app:chipIconDrawable="@drawable/baseline_tag_24"    
-  app:chipIconTint="@color/teal800"    
-  app:chipStrokeColor="@color/teal800"    
-  app:chipStrokeWidth="1dp"    
-  app:chipTextColor="@color/teal800"    
-  app:hintText="Hint text - test"    
-  app:startIconDrawable="@drawable/baseline_tag_24"    
-  app:startIconTint="@color/teal800"    
-  app:strokeColor="@color/teal800"    
-  app:textColor="@color/indigo900" />  
+<com.example.multichipcomboboxlibrary.MultiChipTextLayout
+        android:id="@+id/main_multi_chip"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginHorizontal="16dp"
+        app:chipBackgroundColor="@android:color/transparent"
+        app:chipCloseEnabled="true"
+        app:chipCloseIconTint="@color/teal800"
+        app:chipIconDrawable="@drawable/baseline_tag_24"
+        app:chipIconTint="@color/teal800"
+        app:chipStrokeColor="@color/teal800"
+        app:chipStrokeWidth="1dp"
+        app:chipTextColor="@color/teal800"
+        app:hintText="Hint text - test"
+        app:startIconDrawable="@drawable/baseline_tag_24"
+        app:startIconTint="@color/teal800"
+        app:strokeColor="@color/teal800"
+        app:textColor="@color/indigo900" />  
   ```
 
 ### Other attributes
 **textSize** :  the size of the text in the TextInputEditText.
+
 **ems** :  makes the TextView be exactly this many ems wide.
+
 **strokeColor** :   stroke color of the TextInputEditText.
+
 **strokeColor** :  stroke width of the TextInputEditText.
+
 **textColor** :  the color of the text in the TextInputEditText.
+
 **hintText** :  the hint text of the TextInputLayout.
+
 **startIconDrawable** :  start icon of the TextInputLayout.
+
 **chipIconDrawable** :  the icon of the chip.
+
 **startIconTint** :  the color of the start icon of the TextInputLayout.
+
 **chipIconTint** :  the color of the chip's icon.
+
 **chipIconStartPadding** :  padding from the start of the chip.
+
 **chipIconSize** :  size of the chip's icon.
+
 **chipCheckable** :  is the chip checkable (default false).
+
 **chipClickable** :  is the chip clickable (default false).
+
 **chipCloseEnabled** :  is the close icon enabled (default true).
+
 **chipTextSize** :  the size of the text in the chip.
+
 **chipTextStartPadding** :  the padding from the chip's start.
+
 **chipTextEndPadding** :  the padding from the chip's end.
+
 **chipPaddingLeft** :  chip's padding left.
+
 **chipPaddingRight** :  chip's padding right.
+
 **chipPaddingTop** :  chip's padding top.
+
 **chipPaddingBottom** :  chip's padding bottom.
+
 **chipStrokeColor** :  stroke color of the chip.
+
 **chipStrokeWidth** :  stroke width of the chip.
+
 **chipBackgroundColor** :  background color of the chip.
+
 **chipTextColor** :   the color of the text in the chip.
+
 **chipCloseIconTint** :the color of the chip's close icon.
 
 
