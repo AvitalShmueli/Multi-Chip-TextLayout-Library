@@ -4,7 +4,9 @@ Home Assignment Exercise for Android B course, in Afeka - the academic college o
 
 Library to insert a text input layout that contains chips.
 
-![sample](https://github.com/user-attachments/assets/59830f0e-63e3-4718-9bb6-df9da27ca3de)
+<p align="center">
+<img src="https://github.com/user-attachments/assets/59830f0e-63e3-4718-9bb6-df9da27ca3de" alt="sample"  style="height:500px;"/>
+</p>
 
 ## Usage
 ##### MultiChipTextLayout Constructor:
