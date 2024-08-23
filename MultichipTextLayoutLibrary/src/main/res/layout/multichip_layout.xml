@@ -13,20 +13,31 @@
     app:startIconDrawable="@drawable/baseline_tag_24"
     app:startIconTint="@color/black">
 
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/mc_TXT"
+<!--    <com.google.android.material.textfield.TextInputEditText-->
+<!--        android:id="@+id/mc_TXT"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:ems="10"-->
+<!--        android:imeOptions="actionDone"-->
+<!--        android:inputType="text"-->
+<!--        android:textAlignment="viewStart"-->
+<!--        android:textColor="@color/black"/>-->
+
+
+    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+        android:id="@+id/mc_autoCompleteTextView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:ems="10"
-        android:imeOptions="actionDone"
+        android:layout_height="50dp"
+        android:paddingHorizontal="16dp"
         android:inputType="text"
-        android:textAlignment="viewStart"
-        android:textColor="@color/black"/>
+        android:imeOptions="actionDone"
+        android:textColor="@color/black" />
 
     <com.google.android.material.chip.ChipGroup
         android:id="@+id/mc_chipGroup_tags"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        >
 
     </com.google.android.material.chip.ChipGroup>
 

@@ -26,7 +26,8 @@
         app:startIconDrawable="@drawable/baseline_tag_24"
         app:startIconTint="@color/teal800"
         app:strokeColor="@color/teal800"
-        app:textColor="@color/indigo900" />
+        app:textColor="@color/indigo900"
+        app:chipsLayoutMode="COMBO_BOX"/>
 
     <LinearLayout
         android:layout_width="match_parent"

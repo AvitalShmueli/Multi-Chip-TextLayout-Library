@@ -12,6 +12,9 @@ import com.example.multichipcomboboxlibrary.MultiChipTextLayout;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private MultiChipTextLayout main_multi_chip;
     private MaterialButton main_BTN_showTags;
@@ -26,6 +29,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         EdgeToEdge.enable(this);
         findViews();
+
+        List<String> items = Arrays.asList(
+                "Mercury",
+                "Venus",
+                "Earth",
+                "Mars",
+                "Jupiter",
+                "Saturn",
+                "Uranus",
+                "Neptune",
+                "Pluto"
+        );
+        main_multi_chip.setDropdownItems(items);
 
         main_multi_chip.setTextChangedListener(new TextWatcher() {
             @Override
@@ -56,12 +72,14 @@ public class MainActivity extends AppCompatActivity {
         main_BTN_showTags.setOnClickListener(v -> {
             showTags = true;
             main_txt_selectedTags.setText(main_multi_chip.getChipsArray().toString());
+            main_multi_chip.clearFocus();
         });
 
         main_BTN_clearTags.setOnClickListener(v -> {
             main_multi_chip.clearChips();
             main_txt_selectedTags.setText("");
             showTags = false;
+            main_multi_chip.clearFocus();
         });
 
 
