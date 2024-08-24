@@ -69,4 +69,25 @@
         android:textSize="18sp"
         tools:text="the tags" />
 
+
+<!--    <com.google.android.material.textfield.TextInputLayout-->
+<!--        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:hint="@string/hint_text"-->
+<!--        android:textAlignment="textStart"-->
+<!--        app:startIconDrawable="@drawable/baseline_tag_24"-->
+<!--        app:startIconTint="@color/black">-->
+
+<!--    <androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView-->
+<!--        android:id="@+id/main_multi"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_marginHorizontal="32dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:paddingHorizontal="16dp"-->
+<!--        android:ems="10"-->
+<!--        android:completionThreshold="1"/>-->
+
+<!--    </com.google.android.material.textfield.TextInputLayout>-->
+
 </LinearLayout>

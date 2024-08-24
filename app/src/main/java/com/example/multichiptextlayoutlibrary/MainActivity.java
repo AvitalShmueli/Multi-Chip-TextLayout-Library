@@ -12,6 +12,9 @@ import com.example.multichipcomboboxlibrary.MultiChipTextLayout;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
     private MultiChipTextLayout main_multi_chip;
     private MaterialButton main_BTN_showTags;
@@ -19,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private MaterialButton main_BTN_clearTags;
     private boolean showTags = false;
 
+//    private AppCompatMultiAutoCompleteTextView main_multi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,25 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         EdgeToEdge.enable(this);
         findViews();
+
+        List<String> items = Arrays.asList(
+                "Mercury",
+                "Venus",
+                "Earth",
+                "Mars",
+                "Jupiter",
+                "Saturn",
+                "Uranus",
+                "Neptune",
+                "Pluto"
+        );
+        main_multi_chip.setDropdownItems(items);
+
+
+//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, items);
+//        main_multi.setAdapter(adapter);
+//        main_multi.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+
 
         main_multi_chip.setTextChangedListener(new TextWatcher() {
             @Override
@@ -72,6 +95,7 @@ public class MainActivity extends AppCompatActivity {
         main_BTN_showTags = findViewById(R.id.main_BTN_showTags);
         main_txt_selectedTags = findViewById(R.id.main_txt_selectedTags);
         main_BTN_clearTags = findViewById(R.id.main_BTN_clearTags);
+//        main_multi = findViewById(R.id.main_multi);
     }
 
 }
