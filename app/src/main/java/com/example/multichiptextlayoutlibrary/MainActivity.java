@@ -4,12 +4,15 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView;
 
 import com.example.multichipcomboboxlibrary.MultiChipTextLayout;
 import com.google.android.material.button.MaterialButton;
+import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textview.MaterialTextView;
 
 import java.util.Arrays;
@@ -21,6 +24,7 @@ public class MainActivity extends AppCompatActivity {
     private MaterialTextView main_txt_selectedTags;
     private MaterialButton main_BTN_clearTags;
     private boolean showTags = false;
+    private AppCompatMultiAutoCompleteTextView main_view;
 
 //    private AppCompatMultiAutoCompleteTextView main_multi;
 
@@ -65,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if(showTags)
                     main_txt_selectedTags.setText(main_multi_chip.getChipsArray().toString());
+                main_view.setText(main_multi_chip.getSpannableStringBuilder());
+
             }
         });
 
@@ -95,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
         main_BTN_showTags = findViewById(R.id.main_BTN_showTags);
         main_txt_selectedTags = findViewById(R.id.main_txt_selectedTags);
         main_BTN_clearTags = findViewById(R.id.main_BTN_clearTags);
+        main_view = findViewById(R.id.main_view);
 //        main_multi = findViewById(R.id.main_multi);
     }
 

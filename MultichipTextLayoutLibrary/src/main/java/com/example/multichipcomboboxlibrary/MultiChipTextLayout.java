@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.drawable.Drawable;
 import android.text.Editable;
 import android.text.SpannableStringBuilder;
@@ -11,6 +12,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -58,6 +60,8 @@ public class MultiChipTextLayout extends TextInputLayout {
     private List<String> dropdownItems;
 
     private SpannableStringBuilder spannableStringBuilder;
+    private int totalChipsWidthInCurrentLine = 0, lines = 1;
+    private int chipSpacing = 16;
     private eChipsLayoutMode selectedChipsLayoutMode;
     public enum eChipsLayoutMode {BELOW, INLINE, COMBO_BOX}
 
@@ -131,7 +135,7 @@ public class MultiChipTextLayout extends TextInputLayout {
 
     }
 
-    
+
     private void initLayoutComboBox(Context context){
         mc_textLayout.setEndIconMode(TextInputLayout.END_ICON_DROPDOWN_MENU);
         spannableStringBuilder = new SpannableStringBuilder();
@@ -164,8 +168,33 @@ public class MultiChipTextLayout extends TextInputLayout {
     }
 
     private void handleNewChip(){
+        mc_multi.setOnKeyListener(new OnKeyListener() {
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                // If the event is a key-down event on the "enter" button
+                if ((event.getAction() == KeyEvent.ACTION_DOWN) &&
+                        (keyCode == KeyEvent.KEYCODE_ENTER)) {
+                    // Perform action on key press
+                    mc_multi.clearFocus();
+                    int endIndex = mc_multi.getEditableText().length();
+                    mc_multi.getEditableText().delete(endIndex,endIndex);
+                    String strTagValue = String.valueOf(mc_multi.getEditableText()).trim();
+                    if (!strTagValue.isEmpty() && !arrTags.contains(strTagValue)) {
+                        arrTags.add(strTagValue);
+                        createChip(strTagValue);
+                    }
+                    else{
+                        int startIndex = mc_multi.getText().length() - strTagValue.length() ;
+                        endIndex = mc_multi.getText().length();
+                        mc_multi.getEditableText().delete(startIndex,endIndex);
+                    }
+                    return true;
+                }
+                return false;
+            }
+        });
+
         mc_multi.setOnEditorActionListener((TextView v, int actionId, KeyEvent event) -> {
-                    if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    if (actionId == EditorInfo.IME_ACTION_DONE ) {
                         mc_multi.clearFocus();
                         String strTagValue = String.valueOf(mc_multi.getEditableText()).trim();
                         if (!strTagValue.isEmpty() && !arrTags.contains(strTagValue)) {
@@ -205,10 +234,18 @@ public class MultiChipTextLayout extends TextInputLayout {
                         String tagToRemove = spanToRemove.getSource();
                         arrTags.remove(tagToRemove);
 
+                        Log.d("TEST","tag removed: "+tagToRemove);
+
                         int startSpan = spannableStringBuilder.getSpanStart(spanToRemove);
                         int endSpan = spannableStringBuilder.getSpanEnd(spanToRemove);
                         spannableStringBuilder.removeSpan(spanToRemove);
                         spannableStringBuilder.delete(startSpan, endSpan);
+
+                        // Check and remove any extra newline characters around the deleted span
+                        if (startSpan > 0 && spannableStringBuilder.charAt(startSpan - 1) == '\n') {
+                            spannableStringBuilder.delete(startSpan - 1, startSpan); // Remove the newline
+                            startSpan = startSpan - 1;
+                        }
 
 //                        mc_TXT.setText(spannableStringBuilder);  // Update the TextInputEditText with the new spannable content
 //                        mc_TXT.setSelection(startSpan); // Update cursor position
@@ -223,7 +260,7 @@ public class MultiChipTextLayout extends TextInputLayout {
         });
     }
 
-    
+
     private void addChipToGroup(String text) {
         Chip chip = new Chip(getContext());
         if (!text.isEmpty() && !arrTags.contains(text)) {
@@ -233,7 +270,7 @@ public class MultiChipTextLayout extends TextInputLayout {
             arrTags.add(text);
         }
 //        mc_TXT.setText(""); // Clear the input after selection
-        mc_multi.setText(""); // Clear the input after selection
+        mc_multi.getEditableText().clear(); // Clear the input after selection
     }
 
 
@@ -245,12 +282,10 @@ public class MultiChipTextLayout extends TextInputLayout {
                 return text;  // Store the tag text as the source
             }
         };
+
         spannableStringBuilder.append(" "); // Append a space to avoid merging with text
         int start = spannableStringBuilder.length() - 1; // Before the space
         spannableStringBuilder.setSpan(imageSpan, start, spannableStringBuilder.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-//        mc_TXT.setText(spannableStringBuilder); // Update the TextInputEditText with the new spannable content
-//        mc_TXT.setSelection(spannableStringBuilder.length()); // Move cursor to the end
 
         mc_multi.setText(spannableStringBuilder); // Update the TextInputEditText with the new spannable content
         mc_multi.setSelection(spannableStringBuilder.length()); // Move cursor to the end
@@ -324,9 +359,9 @@ public class MultiChipTextLayout extends TextInputLayout {
                 mc_textLayout.setStartIconTintList(ColorStateList.valueOf(startIconTint));
                 super.setStartIconDrawable(null);
                 mc_textLayout.setStartIconDrawable(startIconDrawable);
-    //            mc_TXT.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
-    //            mc_TXT.setEms(ems);
-    //            mc_TXT.setTextColor(textColor);
+                //            mc_TXT.setTextSize(TypedValue.COMPLEX_UNIT_PX,textSize);
+                //            mc_TXT.setEms(ems);
+                //            mc_TXT.setTextColor(textColor);
 
                 mc_multi.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
                 mc_multi.setEms(ems);
@@ -399,12 +434,10 @@ public class MultiChipTextLayout extends TextInputLayout {
 //        chipDrawable.setChipIconTint(ColorStateList.valueOf(chipIconTint));
 //        chipDrawable.setChipIconSize(chipIconSize);
 
-        chipDrawable.setCloseIconTint(ColorStateList.valueOf(chipCloseIconTint));
-        chipDrawable.setCloseIconVisible(chipCloseEnabled);
+//        chipDrawable.setCloseIconTint(ColorStateList.valueOf(chipCloseIconTint));
+//        chipDrawable.setCloseIconVisible(chipCloseEnabled);
 
-        int spacing = 16;
-        chipDrawable.setBounds(spacing, 0, chipDrawable.getIntrinsicWidth()+spacing, chipDrawable.getIntrinsicHeight());
-
+        chipDrawable.setBounds(chipSpacing, chipSpacing, chipDrawable.getIntrinsicWidth()+ chipSpacing, chipDrawable.getIntrinsicHeight() + chipSpacing);
         return chipDrawable;
     }
 
@@ -424,7 +457,12 @@ public class MultiChipTextLayout extends TextInputLayout {
             spannableStringBuilder.clear();
         mc_chipGroup_tags.removeAllViews();
         //mc_TXT.setText("");
-        mc_multi.setText("");
+        mc_multi.getEditableText().clear();
+        lines = 1;
+        totalChipsWidthInCurrentLine = 0;
     }
 
+    public SpannableStringBuilder getSpannableStringBuilder(){
+        return spannableStringBuilder;
+    }
 }
