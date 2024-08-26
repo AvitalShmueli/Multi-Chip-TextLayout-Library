@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="textSize">14sp</dimen>
+    <dimen name="text_paddingStart">8dp</dimen>
+    <dimen name="chip_IconSize">18dp</dimen>
+    <dimen name="chip_IconStartPadding">3dp</dimen>
+    <dimen name="chip_Height">32dp</dimen>
+    <dimen name="chip_StrokeWidth">1dp</dimen>
+    <dimen name="chip_TextSize">13sp</dimen>
+    <dimen name="chip_TextStartPadding">8dp</dimen>
+    <dimen name="chip_TextEndPadding">8dp</dimen>
+    <dimen name="chip_PaddingLeft">8dp</dimen>
+    <dimen name="chip_PaddingRight">8dp</dimen>
+    <dimen name="chip_PaddingTop">8dp</dimen>
+    <dimen name="chip_PaddingBottom">8dp</dimen>
+</resources>

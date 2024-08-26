@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="MultiChipCombobox">
+    <declare-styleable name="MultiChipTextLayout">
         <attr name="textSize" format="dimension" />
         <attr name="ems" format="integer" />
         <attr name="strokeColor" format="color"/>
@@ -28,6 +28,13 @@
         <attr name="chipBackgroundColor" format="color"/>
         <attr name="chipTextColor" format="color"/>
         <attr name="chipCloseIconTint" format="color"/>
+        <attr name="enableAddValuesManually" format="boolean"/>
+        <attr name="enableMultipleSelection" format="boolean"/>
+        <attr name="chipsLayoutMode" format="enum">
+            <enum name="BELOW" value="0"/>
+            <enum name="INLINE" value="1"/>
+            <enum name="COMBO_BOX" value="2"/>
+        </attr>
     </declare-styleable>
 
 </resources>
