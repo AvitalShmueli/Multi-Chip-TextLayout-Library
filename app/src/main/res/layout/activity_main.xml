@@ -24,7 +24,7 @@
         app:chipTextSize="12sp"
         app:chipsLayoutMode="COMBO_BOX"
         app:enableAddValuesManually="true"
-        app:enableMultipleSelection="false"
+        app:enableMultipleSelection="true"
         app:hintText="Select items"
         app:startIconDrawable="@drawable/baseline_tag_24"
         app:startIconTint="@color/teal800"

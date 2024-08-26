@@ -54,10 +54,10 @@ public class MultiChipTextLayout extends TextInputLayout {
     private List<String> dropdownItems;
     private boolean enableAddValuesManually;
     private boolean enableMultipleSelection;
+    private boolean focusedTouch = false;
     private MultiChipTextLayout.eChipsLayoutMode selectedChipsLayoutMode;
     public enum eChipsLayoutMode {BELOW, INLINE, COMBO_BOX}
 
-    private boolean focusedTouch = false;
 
     public MultiChipTextLayout(Context context) {
         this(context, null);
@@ -78,7 +78,6 @@ public class MultiChipTextLayout extends TextInputLayout {
 
         findViews(view);
         handelAttributes(attrs);
-
 
         switch (selectedChipsLayoutMode) {
             case BELOW:
@@ -132,7 +131,6 @@ public class MultiChipTextLayout extends TextInputLayout {
 
     private void initLayoutComboBox(Context context){
         mc_textLayout.setEndIconMode(TextInputLayout.END_ICON_DROPDOWN_MENU);
-//        spannableStringBuilder = new SpannableStringBuilder();
 
         dropdownItems = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, dropdownItems);
@@ -217,7 +215,7 @@ public class MultiChipTextLayout extends TextInputLayout {
             @Override
             public void onClick(View v) {
                 if (chipCloseEnabled) {
-                    if(focusedTouch || mc_multi.length() == 0) {
+                    if (focusedTouch || mc_multi.length() == 0) {
                         removeChip(mc_multi.getSelectionStart(), mc_multi.getSelectionEnd());
                     }
                     else focusedTouch = true;
@@ -280,7 +278,6 @@ public class MultiChipTextLayout extends TextInputLayout {
 
         mc_multi.setText(spannableStringBuilder); // Update the TextInputEditText with the new spannable content
         mc_multi.setSelection(spannableStringBuilder.length()); // Move cursor to the end
-
     }
 
 
@@ -390,7 +387,6 @@ public class MultiChipTextLayout extends TextInputLayout {
         chip.setCloseIconTint(ColorStateList.valueOf(chipCloseIconTint));
         chip.setCloseIconVisible(chipCloseEnabled);
 
-
         chip.setOnCloseIconClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -400,7 +396,6 @@ public class MultiChipTextLayout extends TextInputLayout {
                     chipCloseClickListener.onClick(v);
             }
         });
-
     }
 
 
@@ -418,7 +413,7 @@ public class MultiChipTextLayout extends TextInputLayout {
         chipDrawable.setPadding(chipPaddingLeft, chipPaddingTop, chipPaddingRight, chipPaddingBottom);
         chipDrawable.setTextEndPadding(chipTextEndPadding);
         chipDrawable.setTextStartPadding(chipTextStartPadding);
-        if( getContext().getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL)
+        if (getContext().getResources().getConfiguration().getLayoutDirection() == View.LAYOUT_DIRECTION_RTL)
             chipDrawable.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
         else chipDrawable.setLayoutDirection(View.LAYOUT_DIRECTION_LTR);
 
@@ -432,7 +427,7 @@ public class MultiChipTextLayout extends TextInputLayout {
         chipDrawable.setCloseIconVisible(chipCloseEnabled);
 
         int spacing = 16;
-        chipDrawable.setBounds(spacing, 0, chipDrawable.getIntrinsicWidth()+spacing, chipDrawable.getIntrinsicHeight());
+        chipDrawable.setBounds(spacing, 0, chipDrawable.getIntrinsicWidth() + spacing, chipDrawable.getIntrinsicHeight());
 
         return chipDrawable;
     }
@@ -450,7 +445,7 @@ public class MultiChipTextLayout extends TextInputLayout {
      */
     public void clearChips() {
         arrTags.clear();
-        if(spannableStringBuilder != null)
+        if (spannableStringBuilder != null)
             spannableStringBuilder.clear();
         mc_chipGroup_tags.removeAllViews();
         mc_multi.setText("");
