@@ -12,8 +12,8 @@ import com.example.multichipcomboboxlibrary.MultiChipTextLayout;
 import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textview.MaterialTextView;
 
+import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
     private MultiChipTextLayout main_multi_chip_below, main_multi_chip_inline, main_multi_chip_combobox, main_multi_chip_single;
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity{
 
         setListenersForMultiChipLayouts();
 
-        List<String> items = Arrays.asList(
+        ArrayList<String> items = new ArrayList<>(Arrays.asList(
                 "Mercury",
                 "Venus",
                 "Earth",
@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity{
                 "Uranus",
                 "Neptune",
                 "Pluto"
-        );
+        ));
         main_multi_chip_combobox.setDropdownItems(items);
         main_multi_chip_single.setDropdownItems(items);
 

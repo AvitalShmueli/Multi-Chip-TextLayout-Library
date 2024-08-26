@@ -11,7 +11,6 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -31,7 +30,6 @@ import com.google.android.material.chip.ChipGroup;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 
 public class MultiChipTextLayout extends TextInputLayout {
@@ -52,12 +50,14 @@ public class MultiChipTextLayout extends TextInputLayout {
     private OnClickListener chipCloseClickListener;
     private AppCompatMultiAutoCompleteTextView mc_multi;
     private SpannableStringBuilder spannableStringBuilder;
-    private List<String> dropdownItems;
+    private ArrayList<String> dropdownItems;
     private boolean enableAddValuesManually;
     private boolean enableMultipleSelection;
     private boolean focusedTouch = false;
     private MultiChipTextLayout.eChipsLayoutMode selectedChipsLayoutMode;
     public enum eChipsLayoutMode {BELOW, INLINE, COMBO_BOX}
+
+    private ArrayAdapter<String> adapter;
 
 
     public MultiChipTextLayout(Context context) {
@@ -134,7 +134,7 @@ public class MultiChipTextLayout extends TextInputLayout {
         mc_textLayout.setEndIconMode(TextInputLayout.END_ICON_DROPDOWN_MENU);
 
         dropdownItems = new ArrayList<>();
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, dropdownItems);
+        adapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, dropdownItems);
         mc_multi.setAdapter(adapter);
 
         mc_multi.setThreshold(1);
@@ -174,7 +174,9 @@ public class MultiChipTextLayout extends TextInputLayout {
         mc_multi.setOnEditorActionListener((TextView v, int actionId, KeyEvent event) -> {
                     if (actionId == EditorInfo.IME_ACTION_DONE) {
                         mc_multi.clearFocus();
-                        String strTagValue = String.valueOf(mc_multi.getEditableText()).trim();
+                        String strTagValue = String.valueOf(mc_multi.getText()).trim();
+                        if(strTagValue.charAt(0) == '\u200B')
+                            strTagValue = strTagValue.substring(1);
                         if (!strTagValue.isEmpty() && !arrTags.contains(strTagValue)) {
                             arrTags.add(strTagValue);
                             createChip(strTagValue);
@@ -219,12 +221,7 @@ public class MultiChipTextLayout extends TextInputLayout {
                     if (focusedTouch && mc_multi.length() > 0) {
                         int startPos = mc_multi.getSelectionStart();
                         int endPos = mc_multi.getSelectionEnd();
-                        ImageSpan[] spans = spannableStringBuilder.getSpans(startPos,  endPos, ImageSpan.class);
-                        if (spans.length > 0) {
-                            Log.d("TEST","REMOVE "+spans[0].getSource());
-                            ImageSpan spanToRemove = spans[0];
-                            removeChip(startPos, endPos);
-                        }
+                        removeChip(startPos, endPos);
                     }
                     else focusedTouch = true;
                 }
@@ -459,9 +456,15 @@ public class MultiChipTextLayout extends TextInputLayout {
      * Sets items for dropdown in COMBO_BOX mode
      * @param items list of Strings
      */
-    public void setDropdownItems(List<String> items) {
+    public void setDropdownItems(ArrayList<String> items) {
         this.dropdownItems = items;
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, dropdownItems);
-        mc_multi.setAdapter(adapter);
+        if(adapter == null) {
+            adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, dropdownItems);
+        } else{
+            mc_multi.setAdapter(adapter);
+            adapter.clear();
+            adapter.addAll(dropdownItems);
+            adapter.notifyDataSetChanged();
+        }
     }
 }
