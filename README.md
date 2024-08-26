@@ -144,3 +144,22 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
                main_txt_selectedTags.setText(main_multi_chip.getChipsArray().toString());  
        }  
    });
+
+
+## What's New?
+### Version 1.0.1
+1. Supporting three modes for the chips layout:
+   * BELOW - the chips appear below the text input (default mode).
+   * INLINE - the chips appear inside the text input.
+   * COMBO_BOX - the text input used as combobox and the chips appear inside.
+2. Both modes that support inline chips, have the same attributes as the default mode.
+   * If chipCloseEnabled set to true, clicking on the chip when the text input has focus will remove the chip.
+   * If enableAddValuesManually set to true, chips can be added manually even if they don't appear in the dropdown items.
+   * If enableMultipleSelection set to false, only one chip can be selected and only from the dropdown items (even if manually values are enabled).
+
+3. For COMBO_BOX mode, the dropdown items can be set using the method setDropdownItems.
+
+#### New attributes -
+enableAddValuesManually - boolean (default = false)
+enableMultipleSelection - boolean (default = true)
+chipsLayoutMode - enum (default = BELOW)
