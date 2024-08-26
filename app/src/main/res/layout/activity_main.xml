@@ -43,6 +43,41 @@
         android:textColor="@color/teal800"
         android:visibility="gone"/>
 
+
+    <com.example.multichipcomboboxlibrary.MultiChipTextLayout
+        android:id="@+id/main_multi_chip_single"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginTop="32dp"
+        app:chipBackgroundColor="@android:color/transparent"
+        app:chipCloseEnabled="true"
+        app:chipCloseIconTint="@color/teal800"
+        app:chipStrokeColor="@color/teal800"
+        app:chipStrokeWidth="1dp"
+        app:chipTextColor="@color/teal800"
+        app:chipTextSize="12sp"
+        app:chipsLayoutMode="COMBO_BOX"
+        app:enableAddValuesManually="true"
+        app:enableMultipleSelection="false"
+        app:hintText="Select single item"
+        app:startIconDrawable="@drawable/baseline_tag_24"
+        app:startIconTint="@color/teal800"
+        app:strokeColor="@color/teal800"
+        app:textColor="@color/indigo900"
+        app:textSize="14sp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/main_txt_selectedTags_single"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:gravity="center"
+        android:textSize="14sp"
+        tools:text="the tags"
+        android:textColor="@color/purple800"
+        android:visibility="gone"/>
+
     <com.example.multichipcomboboxlibrary.MultiChipTextLayout
         android:id="@+id/main_multi_chip_inline"
         android:layout_width="match_parent"
@@ -59,7 +94,7 @@
         app:chipTextColor="@color/teal800"
         app:chipTextSize="12sp"
         app:chipsLayoutMode="INLINE"
-        app:hintText="Select items"
+        app:hintText="Inline tags - example"
         app:startIconDrawable="@drawable/baseline_tag_24"
         app:startIconTint="@color/teal800"
         app:strokeColor="@color/teal800"

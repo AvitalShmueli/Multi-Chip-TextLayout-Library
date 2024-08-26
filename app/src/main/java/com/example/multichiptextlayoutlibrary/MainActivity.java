@@ -16,9 +16,9 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity{
-    private MultiChipTextLayout main_multi_chip_below, main_multi_chip_inline, main_multi_chip_combobox;
+    private MultiChipTextLayout main_multi_chip_below, main_multi_chip_inline, main_multi_chip_combobox, main_multi_chip_single;
     private MaterialButton main_BTN_showTags;
-    private MaterialTextView main_txt_selectedTags_below, main_txt_selectedTags_inline, main_txt_selectedTags_combobox;
+    private MaterialTextView main_txt_selectedTags_below, main_txt_selectedTags_inline, main_txt_selectedTags_combobox, main_txt_selectedTags_single;
     private MaterialButton main_BTN_clearTags;
     private boolean showTags = false;
 
@@ -34,10 +34,12 @@ public class MainActivity extends AppCompatActivity{
             main_txt_selectedTags_below.setText(main_multi_chip_below.getChipsArray().toString());
             main_txt_selectedTags_inline.setText(main_multi_chip_inline.getChipsArray().toString());
             main_txt_selectedTags_combobox.setText(main_multi_chip_combobox.getChipsArray().toString());
+            main_txt_selectedTags_single.setText(main_multi_chip_single.getChipsArray().toString());
 
             main_txt_selectedTags_below.setVisibility(View.VISIBLE);
             main_txt_selectedTags_inline.setVisibility(View.VISIBLE);
             main_txt_selectedTags_combobox.setVisibility(View.VISIBLE);
+            main_txt_selectedTags_single.setVisibility(View.VISIBLE);
 
         });
 
@@ -45,12 +47,13 @@ public class MainActivity extends AppCompatActivity{
             main_multi_chip_below.clearChips();
             main_multi_chip_inline.clearChips();
             main_multi_chip_combobox.clearChips();
-            main_txt_selectedTags_below.setText("");
+            main_multi_chip_single.clearChips();
             showTags = false;
 
             main_txt_selectedTags_below.setVisibility(View.GONE);
             main_txt_selectedTags_inline.setVisibility(View.GONE);
             main_txt_selectedTags_combobox.setVisibility(View.GONE);
+            main_txt_selectedTags_single.setVisibility(View.GONE);
         });
 
         setListenersForMultiChipLayouts();
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity{
                 "Pluto"
         );
         main_multi_chip_combobox.setDropdownItems(items);
+        main_multi_chip_single.setDropdownItems(items);
 
     }
 
@@ -74,11 +78,13 @@ public class MainActivity extends AppCompatActivity{
         main_multi_chip_below = findViewById(R.id.main_multi_chip_below);
         main_multi_chip_inline = findViewById(R.id.main_multi_chip_inline);
         main_multi_chip_combobox = findViewById(R.id.main_multi_chip_combobox);
+        main_multi_chip_single = findViewById(R.id.main_multi_chip_single);
         main_BTN_showTags = findViewById(R.id.main_BTN_showTags);
         main_BTN_clearTags = findViewById(R.id.main_BTN_clearTags);
         main_txt_selectedTags_below = findViewById(R.id.main_txt_selectedTags_below);
         main_txt_selectedTags_inline = findViewById(R.id.main_txt_selectedTags_inline);
         main_txt_selectedTags_combobox = findViewById(R.id.main_txt_selectedTags_combobox);
+        main_txt_selectedTags_single = findViewById(R.id.main_txt_selectedTags_single);
     }
 
     private void setListenersForMultiChipLayouts(){
@@ -152,6 +158,29 @@ public class MainActivity extends AppCompatActivity{
         main_multi_chip_combobox.setChipOnCloseClickListener(v -> {
             if(showTags)
                 main_txt_selectedTags_combobox.setText(main_multi_chip_combobox.getChipsArray().toString());
+        });
+
+        main_multi_chip_single.setTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(showTags)
+                    main_txt_selectedTags_single.setText(main_multi_chip_single.getChipsArray().toString());
+            }
+        });
+
+        main_multi_chip_single.setChipOnCloseClickListener(v -> {
+            if(showTags)
+                main_txt_selectedTags_single.setText(main_multi_chip_single.getChipsArray().toString());
         });
     }
 

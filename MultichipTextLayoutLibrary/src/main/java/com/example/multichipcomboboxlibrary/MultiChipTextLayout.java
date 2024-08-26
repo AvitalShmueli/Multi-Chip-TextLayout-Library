@@ -11,6 +11,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.style.ImageSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -215,8 +216,15 @@ public class MultiChipTextLayout extends TextInputLayout {
             @Override
             public void onClick(View v) {
                 if (chipCloseEnabled) {
-                    if (focusedTouch || mc_multi.length() == 0) {
-                        removeChip(mc_multi.getSelectionStart(), mc_multi.getSelectionEnd());
+                    if (focusedTouch && mc_multi.length() > 0) {
+                        int startPos = mc_multi.getSelectionStart();
+                        int endPos = mc_multi.getSelectionEnd();
+                        ImageSpan[] spans = spannableStringBuilder.getSpans(startPos,  endPos, ImageSpan.class);
+                        if (spans.length > 0) {
+                            Log.d("TEST","REMOVE "+spans[0].getSource());
+                            ImageSpan spanToRemove = spans[0];
+                            removeChip(startPos, endPos);
+                        }
                     }
                     else focusedTouch = true;
                 }
@@ -236,7 +244,7 @@ public class MultiChipTextLayout extends TextInputLayout {
                 int startSpan = spannableStringBuilder.getSpanStart(spanToRemove);
                 int endSpan = spannableStringBuilder.getSpanEnd(spanToRemove);
                 spannableStringBuilder.removeSpan(spanToRemove);
-                spannableStringBuilder.delete(startSpan, endSpan);
+                spannableStringBuilder.delete(startSpan, endSpan +1);
 
                 mc_multi.setText(spannableStringBuilder);  // Update the TextInputEditText with the new spannable content
                 mc_multi.setSelection(startSpan); // Update cursor position
@@ -275,7 +283,7 @@ public class MultiChipTextLayout extends TextInputLayout {
         int end = spannableStringBuilder.length();
 
         spannableStringBuilder.setSpan(imageSpan, start, end, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
+        spannableStringBuilder.append("\u200B");
         mc_multi.setText(spannableStringBuilder); // Update the TextInputEditText with the new spannable content
         mc_multi.setSelection(spannableStringBuilder.length()); // Move cursor to the end
     }
@@ -432,6 +440,7 @@ public class MultiChipTextLayout extends TextInputLayout {
     public ArrayList<String> getChipsArray() {
         return arrTags;
     }
+
 
     /**
      * Clears all tags
