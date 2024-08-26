@@ -53,6 +53,7 @@ public class MultiChipTextLayout extends TextInputLayout {
     private SpannableStringBuilder spannableStringBuilder;
     private List<String> dropdownItems;
     private boolean enableAddValuesManually;
+    private boolean enableMultipleSelection;
     private MultiChipTextLayout.eChipsLayoutMode selectedChipsLayoutMode;
     public enum eChipsLayoutMode {BELOW, INLINE, COMBO_BOX}
 
@@ -131,7 +132,7 @@ public class MultiChipTextLayout extends TextInputLayout {
 
     private void initLayoutComboBox(Context context){
         mc_textLayout.setEndIconMode(TextInputLayout.END_ICON_DROPDOWN_MENU);
-        spannableStringBuilder = new SpannableStringBuilder();
+//        spannableStringBuilder = new SpannableStringBuilder();
 
         dropdownItems = new ArrayList<>();
         ArrayAdapter<String> adapter = new ArrayAdapter<>(context, android.R.layout.simple_dropdown_item_1line, dropdownItems);
@@ -145,6 +146,8 @@ public class MultiChipTextLayout extends TextInputLayout {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String selectedItem = (String) parent.getItemAtPosition(position);
                 if (!selectedItem.isEmpty() && !arrTags.contains(selectedItem)) {
+                    if (!enableMultipleSelection)
+                        removeChip(0,1);
                     arrTags.add(selectedItem);
                     createChip(selectedItem);
                 } else {
@@ -157,7 +160,7 @@ public class MultiChipTextLayout extends TextInputLayout {
             }
         });
 
-        if (enableAddValuesManually) {
+        if (enableAddValuesManually && enableMultipleSelection) {
             handleNewChip();
         }
 
@@ -341,6 +344,7 @@ public class MultiChipTextLayout extends TextInputLayout {
                 chipPaddingTop = typedArray.getDimensionPixelSize(R.styleable.MultiChipTextLayout_chipPaddingTop, (int) getResources().getDimension(R.dimen.chip_PaddingTop));
                 chipPaddingBottom = typedArray.getDimensionPixelSize(R.styleable.MultiChipTextLayout_chipPaddingBottom, (int) getResources().getDimension(R.dimen.chip_PaddingBottom));
                 enableAddValuesManually = typedArray.getBoolean(R.styleable.MultiChipTextLayout_enableAddValuesManually,false);
+                enableMultipleSelection = typedArray.getBoolean(R.styleable.MultiChipTextLayout_enableMultipleSelection,true);
 
                 selectedChipsLayoutMode = eChipsLayoutMode.values()[typedArray.getInt(R.styleable.MultiChipTextLayout_chipsLayoutMode, 0)];
 
