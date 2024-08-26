@@ -5,8 +5,9 @@ Home Assignment Exercise for Android B course, in Afeka - the academic college o
 Library to insert a text input layout that contains chips.
 
 <p align="center">
-<img src="https://github.com/user-attachments/assets/59830f0e-63e3-4718-9bb6-df9da27ca3de" alt="sample"  style="height:500px;"/>
+<img src="https://github.com/user-attachments/assets/f420ca38-7445-457a-9541-8f5136aec53d" alt="sample_v2"  style="height:500px;"/>
 </p>
+
 
 ## Usage
 ##### MultiChipTextLayout Constructor:
@@ -35,7 +36,11 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
         app:startIconDrawable="@drawable/baseline_tag_24"
         app:startIconTint="@color/teal800"
         app:strokeColor="@color/teal800"
-        app:textColor="@color/indigo900" />  
+        app:textColor="@color/indigo900"
+        app:chipsLayoutMode="COMBO_BOX"
+        app:enableAddValuesManually="true"
+        app:enableMultipleSelection="false"
+/>  
   ```
 
 ### Other attributes
@@ -91,7 +96,13 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
 
 **chipTextColor** :   the color of the text in the chip.
 
-**chipCloseIconTint** :the color of the chip's close icon.
+**chipCloseIconTint** : the color of the chip's close icon.
+
+**chipsLayoutMode** : the mode of the layout (BELOW, INLINE, COMBO_BOX)
+
+**enableAddValuesManually** : is the combobox allows adding values manually (default false)
+
+**enableMultipleSelection** : is the combobox allows multiple selection (default true)
 
 
 ## Methods
@@ -103,6 +114,7 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
        main_txt_selectedTags.setText(main_multi_chip.getChipsArray().toString());  
    });
    ```
+   
 2. clearChips() - clears all chips and resets the TextInputLayout.
    ##### usage example
    ```java
@@ -112,6 +124,7 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
        showTags = false;  
    });
    ```
+   
 3. setTextChangedListener(TextWatcher textChangedListener) - set text change listener on the TextInputEditText.
    ##### usage example
    ```java
@@ -134,6 +147,7 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
    });
    ```
 
+
 4. setChipOnCloseClickListener(OnClickListener listener) - set on click listener on the chip close icon,
    ##### usage example
    ```java
@@ -144,6 +158,25 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
                main_txt_selectedTags.setText(main_multi_chip.getChipsArray().toString());  
        }  
    });
+```
+
+5. setDropdownItems(ArrayList<String> items) - set the items for the combobox.
+   ##### usage example
+   ```java
+        ArrayList<String> items = new ArrayList<>(Arrays.asList(
+                "Mercury",
+                "Venus",
+                "Earth",
+                "Mars",
+                "Jupiter",
+                "Saturn",
+                "Uranus",
+                "Neptune",
+                "Pluto"
+        ));
+        main_multi_chip_combobox.setDropdownItems(items);
+```
+   
 
 
 ## What's New?
@@ -160,6 +193,6 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
 3. For COMBO_BOX mode, the dropdown items can be set using the method setDropdownItems.
 
 #### New attributes -
-enableAddValuesManually - boolean (default = false)
-enableMultipleSelection - boolean (default = true)
-chipsLayoutMode - enum (default = BELOW)
+- enableAddValuesManually - boolean (default = false)
+- enableMultipleSelection - boolean (default = true)
+- chipsLayoutMode - enum (default = BELOW)
