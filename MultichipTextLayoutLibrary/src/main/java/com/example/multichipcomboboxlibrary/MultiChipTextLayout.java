@@ -281,13 +281,6 @@ public class MultiChipTextLayout extends TextInputLayout {
     }
 
 
-    public void setDropdownItems(List<String> items) {
-        this.dropdownItems = items;
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, dropdownItems);
-        mc_multi.setAdapter(adapter);
-    }
-
-
     private void findViews(View view) {
         mc_textLayout = view.findViewById(R.id.mc_textLayout);
         mc_multi = findViewById(R.id.mc_multi);
@@ -452,4 +445,14 @@ public class MultiChipTextLayout extends TextInputLayout {
         mc_multi.clearFocus();
     }
 
+
+    /**
+     * Sets items for dropdown in COMBO_BOX mode
+     * @param items list of Strings
+     */
+    public void setDropdownItems(List<String> items) {
+        this.dropdownItems = items;
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_dropdown_item_1line, dropdownItems);
+        mc_multi.setAdapter(adapter);
+    }
 }
