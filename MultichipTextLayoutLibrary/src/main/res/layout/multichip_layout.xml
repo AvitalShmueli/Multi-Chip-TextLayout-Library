@@ -11,32 +11,16 @@
     app:startIconDrawable="@drawable/baseline_tag_24"
     app:startIconTint="@color/black">
 
-    <!--    <com.google.android.material.textfield.TextInputEditText-->
-    <!--        android:id="@+id/mc_TXT"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:ems="10"-->
-    <!--        android:imeOptions="actionDone"-->
-    <!--        android:inputType="text"-->
-    <!--        android:paddingStart="@dimen/text_paddingStart"-->
-    <!--        android:textColor="@color/black" />-->
-
-    <!--    <com.google.android.material.textfield.MaterialAutoCompleteTextView-->
-    <!--        android:id="@+id/mc_autoCompleteTextView"-->
-    <!--        android:layout_width="match_parent"-->
-    <!--        android:layout_height="50dp"-->
-    <!--        android:paddingHorizontal="16dp"-->
-    <!--        android:inputType="text"-->
-    <!--        android:imeOptions="actionDone"-->
-    <!--        android:textColor="@color/black" />-->
 
     <androidx.appcompat.widget.AppCompatMultiAutoCompleteTextView
         android:id="@+id/mc_multi"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:minHeight="60dp"
         android:paddingHorizontal="16dp"
         android:imeOptions="actionDone"
         android:inputType="text"
+        android:gravity="center_vertical"
         android:textColor="@color/black"/>
 
     <com.google.android.material.chip.ChipGroup

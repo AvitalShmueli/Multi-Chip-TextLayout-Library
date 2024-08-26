@@ -1,5 +1,6 @@
 package com.example.multichiptextlayoutlibrary;
 
+
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,14 +16,12 @@ import com.google.android.material.textview.MaterialTextView;
 import java.util.Arrays;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
-    private MultiChipTextLayout main_multi_chip;
+public class MainActivity extends AppCompatActivity{
+    private MultiChipTextLayout main_multi_chip_below, main_multi_chip_inline, main_multi_chip_combobox;
     private MaterialButton main_BTN_showTags;
-    private MaterialTextView main_txt_selectedTags;
+    private MaterialTextView main_txt_selectedTags_below, main_txt_selectedTags_inline, main_txt_selectedTags_combobox;
     private MaterialButton main_BTN_clearTags;
     private boolean showTags = false;
-
-//    private AppCompatMultiAutoCompleteTextView main_multi;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +29,32 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         EdgeToEdge.enable(this);
         findViews();
+
+        main_BTN_showTags.setOnClickListener(v -> {
+            showTags = true;
+            main_txt_selectedTags_below.setText(main_multi_chip_below.getChipsArray().toString());
+            main_txt_selectedTags_inline.setText(main_multi_chip_inline.getChipsArray().toString());
+            main_txt_selectedTags_combobox.setText(main_multi_chip_combobox.getChipsArray().toString());
+
+            main_txt_selectedTags_below.setVisibility(View.VISIBLE);
+            main_txt_selectedTags_inline.setVisibility(View.VISIBLE);
+            main_txt_selectedTags_combobox.setVisibility(View.VISIBLE);
+
+        });
+
+        main_BTN_clearTags.setOnClickListener(v -> {
+            main_multi_chip_below.clearChips();
+            main_multi_chip_inline.clearChips();
+            main_multi_chip_combobox.clearChips();
+            main_txt_selectedTags_below.setText("");
+            showTags = false;
+
+            main_txt_selectedTags_below.setVisibility(View.GONE);
+            main_txt_selectedTags_inline.setVisibility(View.GONE);
+            main_txt_selectedTags_combobox.setVisibility(View.GONE);
+        });
+
+        setListenersForMultiChipLayouts();
 
         List<String> items = Arrays.asList(
                 "Mercury",
@@ -42,15 +67,24 @@ public class MainActivity extends AppCompatActivity {
                 "Neptune",
                 "Pluto"
         );
-        main_multi_chip.setDropdownItems(items);
+        main_multi_chip_combobox.setDropdownItems(items);
 
+    }
 
-//        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_dropdown_item_1line, items);
-//        main_multi.setAdapter(adapter);
-//        main_multi.setTokenizer(new MultiAutoCompleteTextView.CommaTokenizer());
+    private void findViews() {
+        main_multi_chip_below = findViewById(R.id.main_multi_chip_below);
+        main_multi_chip_inline = findViewById(R.id.main_multi_chip_inline);
+        main_multi_chip_combobox = findViewById(R.id.main_multi_chip_combobox);
+        main_BTN_showTags = findViewById(R.id.main_BTN_showTags);
+        main_BTN_clearTags = findViewById(R.id.main_BTN_clearTags);
+        main_txt_selectedTags_below = findViewById(R.id.main_txt_selectedTags_below);
+        main_txt_selectedTags_inline = findViewById(R.id.main_txt_selectedTags_inline);
+        main_txt_selectedTags_combobox = findViewById(R.id.main_txt_selectedTags_combobox);
+    }
 
+    private void setListenersForMultiChipLayouts(){
 
-        main_multi_chip.setTextChangedListener(new TextWatcher() {
+        main_multi_chip_below.setTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -64,38 +98,62 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if(showTags)
-                    main_txt_selectedTags.setText(main_multi_chip.getChipsArray().toString());
+                    main_txt_selectedTags_below.setText(main_multi_chip_below.getChipsArray().toString());
             }
         });
 
-        main_multi_chip.setChipOnCloseClickListener(new View.OnClickListener() {
+        main_multi_chip_below.setChipOnCloseClickListener(v -> {
+            if(showTags)
+                main_txt_selectedTags_below.setText(main_multi_chip_below.getChipsArray().toString());
+        });
+
+
+        main_multi_chip_inline.setTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 if(showTags)
-                    main_txt_selectedTags.setText(main_multi_chip.getChipsArray().toString());
+                    main_txt_selectedTags_inline.setText(main_multi_chip_inline.getChipsArray().toString());
             }
         });
 
-        main_BTN_showTags.setOnClickListener(v -> {
-            showTags = true;
-            main_txt_selectedTags.setText(main_multi_chip.getChipsArray().toString());
-        });
-
-        main_BTN_clearTags.setOnClickListener(v -> {
-            main_multi_chip.clearChips();
-            main_txt_selectedTags.setText("");
-            showTags = false;
+        main_multi_chip_inline.setChipOnCloseClickListener(v -> {
+            if(showTags)
+                main_txt_selectedTags_inline.setText(main_multi_chip_inline.getChipsArray().toString());
         });
 
 
-    }
+        main_multi_chip_combobox.setTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    private void findViews() {
-        main_multi_chip = findViewById(R.id.main_multi_chip);
-        main_BTN_showTags = findViewById(R.id.main_BTN_showTags);
-        main_txt_selectedTags = findViewById(R.id.main_txt_selectedTags);
-        main_BTN_clearTags = findViewById(R.id.main_BTN_clearTags);
-//        main_multi = findViewById(R.id.main_multi);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(showTags)
+                    main_txt_selectedTags_combobox.setText(main_multi_chip_combobox.getChipsArray().toString());
+            }
+        });
+
+        main_multi_chip_combobox.setChipOnCloseClickListener(v -> {
+            if(showTags)
+                main_txt_selectedTags_combobox.setText(main_multi_chip_combobox.getChipsArray().toString());
+        });
     }
 
 }

@@ -28,6 +28,7 @@
         <attr name="chipBackgroundColor" format="color"/>
         <attr name="chipTextColor" format="color"/>
         <attr name="chipCloseIconTint" format="color"/>
+        <attr name="enableAddValuesManually" format="boolean"/>
         <attr name="chipsLayoutMode" format="enum">
             <enum name="BELOW" value="0"/>
             <enum name="INLINE" value="1"/>
