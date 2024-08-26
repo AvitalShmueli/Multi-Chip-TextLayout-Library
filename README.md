@@ -158,7 +158,7 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
                main_txt_selectedTags.setText(main_multi_chip.getChipsArray().toString());  
        }  
    });
-```
+   ```
 
 5. setDropdownItems(ArrayList<String> items) - set the items for the combobox.
    ##### usage example
@@ -175,7 +175,7 @@ main_multi_chip = findViewById(R.id.main_multi_chip);
                 "Pluto"
         ));
         main_multi_chip_combobox.setDropdownItems(items);
-```
+   ```
    
 
 
